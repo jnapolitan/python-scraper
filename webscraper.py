@@ -1,0 +1,15 @@
+from bs4 import BeautifulSoup
+import requests
+import re
+
+url = 'https://en.wikipedia.org/wiki/RMS_Titanic'
+response = requests.get(url, timeout=5)
+content = BeautifulSoup(response.content, 'html.parser')
+text = content.find('div', attrs={"class": "mw-parser-output"})
+links = []
+
+for link in text.findAll('a', attrs={'href': re.compile("^/wiki/")}):
+  if link['href'] not in links and len(links) < 5:
+      links.append(link['href'])
+
+print(links)
