@@ -9,7 +9,7 @@ text = content.find('div', attrs={"class": "mw-parser-output"})
 links = []
 
 for link in text.findAll('a', attrs={'href': re.compile("^/wiki/")}):
-  if link['href'] not in links and len(links) < 5:
-      links.append(link['href'])
+  if link['href'] not in links:
+    links.append(link['href'])
 
-print(links)
+print(links[0:5])
